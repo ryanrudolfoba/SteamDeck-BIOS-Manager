@@ -57,7 +57,8 @@ then
 	sudo systemctl mask jupiter-biosupdate
 	sudo mkdir -p /foxnet/bios/ 2> /dev/null
 	sudo touch /foxnet/bios/INHIBIT 2> /dev/null
-	sudo mv /usr/share/jupiter_bios/$(sudo dmidecode -s bios-version)_sign.fd /usr/share/jupiter_bios/$(sudo dmidecode -s bios-version)_sign.fd.orig 2> /dev/null
+	sudo mkdir /usr/share/jupiter_bios/bak 2> /dev/null
+	sudo mv /usr/share/jupiter_bios/F* /usr/share/jupiter_bios/bak 2> /dev/null
 	sudo steamos-readonly enable
 	zenity --warning --title "Steam Deck BIOS Manager" --text "BIOS updates has been blocked!" --width 400 --height 75
 
@@ -66,7 +67,8 @@ then
 	echo -e "$PASSWORD\n" | sudo -S steamos-readonly disable
 	sudo systemctl unmask jupiter-biosupdate
 	sudo rm -rf /foxnet 2> /dev/null
-	sudo mv /usr/share/jupiter_bios/$(sudo dmidecode -s bios-version)_sign.fdi.orig /usr/share/jupiter_bios/$(sudo dmidecode -s bios-version)_sign.fd 2> /dev/null
+	sudo mv /usr/share/jupiter_bios/bak/F* /usr/share/jupiter_bios 2> /dev/null
+	sudo rmdir /usr/share/jupiter_bios/bak 2> /dev/null
 	sudo steamos-readonly enable
 	zenity --warning --title "Steam Deck BIOS Manager" --text "BIOS updates has been unblocked!" --width 400 --height 75
 
@@ -152,7 +154,8 @@ BIOS_Choice=$(zenity --title "Steam Deck BIOS Manager" --width 400 --height 400 
 					sudo systemctl mask jupiter-biosupdate
 					sudo mkdir -p /foxnet/bios/ 2> /dev/null
 					sudo touch /foxnet/bios/INHIBIT 2> /dev/null
-					sudo mv /usr/share/jupiter_bios/$(sudo dmidecode -s bios-version)_sign.fd /usr/share/jupiter_bios/$(sudo dmidecode -s bios-version)_sign.fd.orig 2> /dev/null
+					sudo mkdir /usr/share/jupiter_bios/bak 2> /dev/null
+					sudo mv /usr/share/jupiter_bios/F* /usr/share/jupiter_bios/bak 2> /dev/null
 					sudo steamos-readonly enable
 
 					# create BIOS backup and then flash the BIOS
