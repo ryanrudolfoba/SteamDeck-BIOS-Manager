@@ -30,7 +30,12 @@ It contains the md5 hash of the signed BIOS files. If this is modified then the 
 1. Do this at your own risk!
 2. This is for educational and research purposes only!
 
-## [Video Tutorial - soon!]
+## [Video Tutorial - Steam Deck BIOS Manager](https://youtu.be/hp5ue4m2Xus?si=7cKOB43jIsiEjp2c)
+[Click the image below for a video tutorial and to see the functionalities of the script!](https://youtu.be/hp5ue4m2Xus?si=7cKOB43jIsiEjp2c)
+</b>
+<p align="center">
+<a href="https://youtu.be/hp5ue4m2Xus?si=7cKOB43jIsiEjp2c"> <img src="https://github.com/ryanrudolfoba/SteamDeck-BIOS-Manager/blob/main/banner.png"/> </a>
+</p>
 
 ## What's New (as of November 18 2023)
 1. initial release
@@ -44,11 +49,13 @@ No more need to type manual and complicated commands!**
 
 **b. BLOCK** - this will prevent SteamOS from automatically applying BIOS updates. Under the hood it performs this tasks - \
    `disables and masks the BIOS update service` \
-   `creates a file called /foxnet/bios/INHIBIT`
+   `creates a file called /foxnet/bios/INHIBIT` \
+   `move the BIOS update file located in /usr/share/jupiter_bios to /usr/share/jupiter_bios/bak`
 
 **c. UNBLOCK** - this will allow SteamOS to automatically apply BIOS updates. Under the hood it performs this tasks - \
    `unmask and enable the BIOS update service` \
-   `deletes the file called /foxnet/bios/inhibit`
+   `deletes the file called /foxnet/bios/inhibit` \
+   `move the BIOS update file back to the original location /usr/share/jupiter_bios`
 
 **d. SMOKELESS** - this will unlock the BIOS to be able to use Smokeless and also expose the AMD PBS CBS menus. Under the hood it performs this tasks - \
    `download jupiter-bios-unlock from evlaV gitlab repo and make it executable` \
