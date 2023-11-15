@@ -45,7 +45,7 @@ It contains the md5 hash of the signed BIOS files. If this is modified then the 
 No more need to type manual and complicated commands!**
 
 **a. BACKUP** - this will backup the current BIOS to a directory called ~/BIOS_backup. It will be saved in a file with the following naming convention - 
-![image](https://github.com/ryanrudolfoba/SteamDeck-dualboot/assets/98122529/97010d32-81c8-4519-bba4-100f6bdec139)
+![image](https://github.com/ryanrudolfoba/SteamDeck-BIOS-Manager/assets/98122529/bc7d465c-f87b-4b97-b410-77d4afc2703f)
 
 **b. BLOCK** - this will prevent SteamOS from automatically applying BIOS updates. Under the hood it performs this tasks - \
    `disables and masks the BIOS update service` \
@@ -70,7 +70,7 @@ No more need to type manual and complicated commands!**
    `check if the md5 sum matches to prevent flashing corrupt downloads` \
    `block BIOS updates and backup current BIOS` \
    `perform the BIOS flash` \
-![image](https://github.com/ryanrudolfoba/SteamDeck-dualboot/assets/98122529/6801bfac-ec85-44e0-93f8-4f976a6ddbfb)
+![image](https://github.com/ryanrudolfoba/SteamDeck-BIOS-Manager/assets/98122529/d6ad02e3-c6c6-4a11-a113-e4c0ada614b6)
 
 
 ## Prerequisites for SteamOS
@@ -87,18 +87,18 @@ No more need to type manual and complicated commands!**
    ./steamdeck-BIOS-manager.sh
    
 4. The script will check if sudo passwword is already set.\
-![image](https://github.com/ryanrudolfoba/SteamDeck-dualboot/assets/98122529/0a004f8d-a840-4867-b897-bae2d1b1395d)
+![image](https://github.com/ryanrudolfoba/SteamDeck-BIOS-Manager/assets/98122529/15a9d968-2602-43a5-8e7f-54628db00171)
 
    a. If the sudo password is already set, enter the current sudo password and the script will continue to run and the main menu will be displayed. \
-   ![image](https://github.com/ryanrudolfoba/SteamDeck-dualboot/assets/98122529/afe7d0d5-500f-4bc5-83f1-db14886bd826)
+   ![image](https://github.com/ryanrudolfoba/SteamDeck-BIOS-Manager/assets/98122529/83f8f0e7-b1f6-43fb-b577-86ebdc434683)
 
    b. If wrong sudo password is provided the script will show an error message. Re-run the script and enter the correct sudo password!\
-![image](https://github.com/ryanrudolfoba/SteamDeck-dualboot/assets/98122529/41852180-89ce-4d3e-9d91-c25396abfa11)
-         
+   ![image](https://github.com/ryanrudolfoba/SteamDeck-BIOS-Manager/assets/98122529/8a56e14c-3432-4e94-85fc-7a7e39a3e6d6)
+      
    c. If the sudo password is blank / not yet set, the script will prompt to setup the sudo password. Re-run the script again to continue.\
-![image](https://github.com/ryanrudolfoba/SteamDeck-dualboot/assets/98122529/e3845f99-073c-4fdc-8cab-582ad08b87e8)
+   ![image](https://github.com/ryanrudolfoba/SteamDeck-BIOS-Manager/assets/98122529/8db149de-07f3-40ba-9a96-96bc77da7543)
 
 5. Main menu. Make your selection.\
-![image](https://github.com/ryanrudolfoba/SteamDeck-dualboot/assets/98122529/afe7d0d5-500f-4bc5-83f1-db14886bd826)
+![image](https://github.com/ryanrudolfoba/SteamDeck-BIOS-Manager/assets/98122529/ca654997-a816-4fa5-867a-631c28d343f2)
 
 
