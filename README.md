@@ -37,6 +37,13 @@ It contains the md5 hash of the signed BIOS files. If this is modified then the 
 <a href="https://youtu.be/hp5ue4m2Xus?si=7cKOB43jIsiEjp2c"> <img src="https://github.com/ryanrudolfoba/SteamDeck-BIOS-Manager/blob/main/banner.png"/> </a>
 </p>
 
+## What's New (as of November 30 2023)
+1. Since OLED cant be unlocked easily, the script will only work on LCD models.
+2. Script will now work on any directory location. (this fixes the issue reported [here](https://github.com/ryanrudolfoba/SteamDeck-BIOS-Manager/issues/4))
+3. Script will ask if user wants to skip the backup. (this will take care of the issue reported [here](https://github.com/ryanrudolfoba/SteamDeck-BIOS-Manager/issues/1))
+
+
+
 ## What's New (as of November 18 2023)
 1. initial release
 
