@@ -24,6 +24,20 @@ else
 	exit
 fi
 
+# check if this is running on LCD. exit immediately if OLED is detected
+
+echo Current BIOS version is $(sudo dmidecode -s bios-version).
+sudo dmidecode -s bios-version | grep -q F7A
+
+if [ $? -eq 0 ]
+then
+	echo This is a Steam Deck LCD. Proceed with the script.
+else
+	echo This is a Steam Deck OLED. 
+	echo Script only works on Steam Deck LCD. Good bye!
+	exit
+fi
+
 while true
 do
 Choice=$(zenity --width 750 --height 320 --list --radiolist --multiple 	--title "Steam Deck BIOS Manager  - https://github.com/ryanrudolfoba/SteamDeck-BIOS-Manager"\
@@ -124,28 +138,30 @@ then
 
 elif [ "$Choice" == "FLASH" ]
 then
-BIOS_Choice=$(zenity --title "Steam Deck BIOS Manager" --width 400 --height 400 --list \
-	--column "BIOS Version" $(ls -l $(pwd)/BIOS/F7A0???_sign.fd | cut -d "/" -f 6) )
+ls $(pwd)/BIOS/F7A0???_sign.fd &> /dev/null
+if [ $? -eq 0 ]
+then
+	BIOS_Choice=$(zenity --title "Steam Deck BIOS Manager" --width 400 --height 400 --list \
+		--column "BIOS Version" $(ls -l $(pwd)/BIOS/F7A0???_sign.fd | sed s/^.*\\/\//) )
 	if [ $? -eq 1 ]
 	then
-		echo User pressed CANCEL. Goodbye!
-		exit
+		echo User pressed CANCEL. Go back to main menu!
 	else
-
-	if ! [ -f $(pwd)/BIOS/F7A0110_sign.fd ]
+		zenity --question --title "Steam Deck BIOS Manager" --text \
+		"Do you want to backup the current BIOS before updating to $BIOS_Choice!\n\nProceed?" --width 400 --height 75
+		if [ $? -eq 1 ]
 		then
-			zenity --warning --title "Steam Deck BIOS Manager" --text "BIOS files does not exist.\n\nPerform a DOWNLOAD operation first." --width 400 --height 75
-		else
+			echo User pressed NO. Ask again before updating the BIOS just to be sure.
 			zenity --question --title "Steam Deck BIOS Manager" --text \
-				"Current BIOS will be backed up and BIOS will be updated to $BIOS_Choice!\n\nProceed?" --width 400 --height 75
+			"Current BIOS will be updated to $BIOS_Choice!\n\nProceed?" --width 400 --height 75
 			if [ $? -eq 1 ]
 			then
-				echo User pressed NO. Go back to MAIN MENU.
+				echo User pressed NO.
 			else
-				echo User pressed YES. Check if BIOS hash is good.
+				echo User pressed YES. Check is BIOS hash is good,
 
 				# check if hash matches before doing any BIOS operations
-				if [ "$(md5sum $(pwd)/BIOS/$BIOS_Choice | cut -d " " -f 1)"  ==  "$(grep $BIOS_Choice $(pwd)/md5.txt | cut -d " " -f 1)" ]
+				if [ "$(md5sum $(pwd)/BIOS/$BIOS_Choice | cut -d " " -f 1)" ==  "$(grep $BIOS_Choice $(pwd)/md5.txt | cut -d " " -f 1)" ]
 				then
 					echo BIOS hash is good. Performing BIOS operations.
 
@@ -159,15 +175,44 @@ BIOS_Choice=$(zenity --title "Steam Deck BIOS Manager" --width 400 --height 400 
 					sudo steamos-readonly enable
 
 					# create BIOS backup and then flash the BIOS
-					mkdir ~/BIOS_backup 2> /dev/null
-					echo -e "$PASSWORD\n" | sudo -S /usr/share/jupiter_bios_updater/h2offt ~/BIOS_backup/jupiter-$(sudo dmidecode -s bios-version)-bios-backup-$(date +%B%d).bin -O
 					echo -e "$PASSWORD\n" | sudo -S /usr/share/jupiter_bios_updater/h2offt $(pwd)/BIOS/$BIOS_Choice
-					exit
 				else
-					zenity --warning --title "Steam Deck BIOS Manager" --text "BIOS hash does not match. Corrupted download?.\n\nPerform a DOWNLOAD again and perform the FLASH." --width 400 --height 75
+					zenity --warning --title "Steam Deck BIOS Manager" --text \
+					"BIOS hash does not match. Corrupted download?.\n\nPerform a DOWNLOAD again and perform the FLASH." \
+					 --width 400 --height 75
 				fi
+			fi
+		else
+			echo User pressed YES. Check if BIOS hash is good.
+
+			# check if hash matches before doing any BIOS operations
+			if [ "$(md5sum $(pwd)/BIOS/$BIOS_Choice | cut -d " " -f 1)"  ==  "$(grep $BIOS_Choice $(pwd)/md5.txt | cut -d " " -f 1)" ]
+			then
+				echo BIOS hash is good. Performing BIOS operations.
+
+				# this will prevent BIOS updates to be applied automatically by SteamOS
+				echo -e "$PASSWORD\n" | sudo steamos-readonly disable
+				sudo systemctl mask jupiter-biosupdate
+				sudo mkdir -p /foxnet/bios/ 2> /dev/null
+				sudo touch /foxnet/bios/INHIBIT 2> /dev/null
+				sudo mkdir /usr/share/jupiter_bios/bak 2> /dev/null
+				sudo mv /usr/share/jupiter_bios/F* /usr/share/jupiter_bios/bak 2> /dev/null
+				sudo steamos-readonly enable
+
+				# create BIOS backup and then flash the BIOS
+				mkdir ~/BIOS_backup 2> /dev/null
+				echo -e "$PASSWORD\n" | sudo -S /usr/share/jupiter_bios_updater/h2offt \
+					~/BIOS_backup/jupiter-$(sudo dmidecode -s bios-version)-bios-backup-$(date +%B%d).bin -O
+				echo -e "$PASSWORD\n" | sudo -S /usr/share/jupiter_bios_updater/h2offt $(pwd)/BIOS/$BIOS_Choice
+			else
+				zenity --warning --title "Steam Deck BIOS Manager" --text \
+				"BIOS hash does not match. Corrupted download?.\n\nPerform a DOWNLOAD again and perform the FLASH." --width 400 --height 75
 			fi
 		fi
 	fi
+else
+	zenity --warning --title "Steam Deck BIOS Manager" --text \
+		"BIOS files does not exist.\n\nPerform a DOWNLOAD operation first." --width 400 --height 75
+fi
 fi
 done
