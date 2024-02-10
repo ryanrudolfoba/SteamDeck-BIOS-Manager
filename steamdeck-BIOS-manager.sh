@@ -137,6 +137,9 @@ then
 	echo downloading BIOS 120
 	curl -s -O --output-dir $(pwd)/BIOS/ -L https://gitlab.com/evlaV/jupiter-hw-support/-/raw/a43e38819ba20f363bdb5bedcf3f15b75bf79323/usr/share/jupiter_bios/F7A0120_sign.fd
 
+	echo downloading BIOS 121
+	curl -s -O --output-dir $(pwd)/BIOS/ -L https://gitlab.com/evlaV/jupiter-hw-support/-/raw/7ffc22a4dc083c005e26676d276bdbd90dd1de5e/usr/share/jupiter_bios/F7A0121_sign.fd
+
 	echo BIOS download complete!
 
 elif [ "$Choice" == "FLASH" ]
