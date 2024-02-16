@@ -38,7 +38,7 @@ It contains the md5 hash of the signed BIOS files. If this is modified then the 
 </p>
 
 ## What's New (as of February 10 2024)
-1. Added BIOS F7A0121 for LCD model. This BIOS version allows for overclocking!
+1. Added BIOS F7A0121 for LCD model. This BIOS version does not allow overclock. You still need to downgrade to 116 and run smokeless.
 
 ## What's New (as of November 30 2023)
 1. Since OLED cant be unlocked easily, the script will only work on LCD models.
