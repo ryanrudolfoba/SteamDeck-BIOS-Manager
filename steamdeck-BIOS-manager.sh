@@ -132,7 +132,7 @@ then
 			sudo wipefs -a /dev/sda
 
 			# sfdisk to partition the USB flash drive to fat32
-			echo ',,c;' | sudo sfdisk /dev/sda
+			echo ',,b;' | sudo sfdisk /dev/sda
 
 			# format the drive
 			sudo mkfs.vfat /dev/sda1
@@ -144,9 +144,9 @@ then
 			# copy the BIOS file
 			if [ $MODEL = "Jupiter" ]
 			then
-				sudo cp $(pwd)/BIOS/F7A0120_sign.fd $(pwd)/temp
+				sudo cp $(pwd)/BIOS/F7A0120_sign.fd $(pwd)/temp/F7ARecovery.fd
 			else
-				sudo cp $(pwd)/BIOS/F7G0107_sign.fd $(pwd)/temp
+				sudo cp $(pwd)/BIOS/F7G0107_sign.fd $(pwd)/temp/F7GRecovery.fd
 			fi
 
 			# unmount the drive
