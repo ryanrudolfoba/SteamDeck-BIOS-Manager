@@ -48,6 +48,10 @@ MODEL=$(cat /sys/class/dmi/id/board_name)
 # capture the BIOS version
 BIOS_VERSION=$(cat /sys/class/dmi/id/bios_version)
 
+# capture USB flash drive
+USB_MODEL=$(lsblk -S | grep sda)
+USB_SIZE=$(lsblk | grep sda | head -n1)
+
 # sanity check - make sure LCD or OLED!
 if [ $MODEL = "Jupiter" ]
 then
@@ -108,9 +112,13 @@ then
 	# create usb flash drive for crisis mode
 	zenity --question --title "Steam Deck BIOS Manager" --text \
 	"This will prepare a USB flash drive for Crisis Mode BIOS flashing. \
-	\n\nMake sure a USB flash drive is inserted. \
+	\n\nMake sure only 1 USB flash drive is inserted and disconnect other USB storage devices. \
+	\n\nUSB flash drive detected - \
+	\n$USB_MODEL \
+	\n$USB_SIZE \
 	\n\nAll contents of the USB flash drive will be deleted! \
-	\n\nDo you want to continue?" --width 450 --height 75
+	\n\nIf the wrong USB flash drive is detected then do not proceed! \
+	\n\nDo you want to continue?" --width 650 --height 75
 	if [ $? -eq 1 ]
 	then
 		echo User pressed NO. Go back to main menu.
