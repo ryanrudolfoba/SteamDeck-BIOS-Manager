@@ -37,6 +37,12 @@ It contains the md5 hash of the signed BIOS files. If this is modified then the 
 <a href="https://youtu.be/hp5ue4m2Xus?si=7cKOB43jIsiEjp2c"> <img src="https://github.com/ryanrudolfoba/SteamDeck-BIOS-Manager/blob/main/banner.png"/> </a>
 </p>
 
+## What's New (as of April 10 2024)
+1. Added support for both Steam Deck LCD and OLED models.
+2. h2offt command now uses the -all parameter.
+3. added new functionality - Prepare a USB flash drive for Crisis Mode BIOS flashing!
+4. code cleanup
+
 ## What's New (as of February 10 2024)
 1. Added BIOS F7A0121 for LCD model. This BIOS version does not allow overclock. You still need to downgrade to 116 and run smokeless.
 
@@ -81,6 +87,20 @@ No more need to type manual and complicated commands!**
    `block BIOS updates and backup current BIOS` \
    `perform the BIOS flash` \
 ![image](https://github.com/ryanrudolfoba/SteamDeck-BIOS-Manager/assets/98122529/d6ad02e3-c6c6-4a11-a113-e4c0ada614b6)
+
+**g. CRISIS** -  this will prepare a USB flash drive for Crisis Mode BIOS flashing - \
+   `the inserted USB flash drive will be repartitioned and reformatted as FAT32` \
+   `for OLED model - F7G0107_sign.fd will be copied to the USB flash drive as F7GRecovery.fd` \
+   `for LCD model - F7A0120_sign.fd will be copied to the USB flash drive as F7ARecovery.fd`
+
+
+## IMPORTANT INFO ABOUT THE CRISIS MODE! - READ THIS CAREFULLY!
+The script will automatically repartition and reformat the USB flash drive as FAT32. \
+Make sure to insert the correct USB flash drive and no other flash drives are inserted. \
+If your dock has a built-in SSD reader, then do not use the CRISIS mode option of the script! \
+**Again - If your dock has a built-in SSD reader, then do not use the CRISIS mode option of the script!**\
+Reason for that - it will always be identified as SDA1 and the script will format the built-in SSD reader instead of the actual USB flash drive.
+**Again - If your dock has a built-in SSD reader, then do not use the CRISIS mode option of the script!**\
 
 
 ## Prerequisites for SteamOS
