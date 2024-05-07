@@ -270,6 +270,10 @@ then
 		curl -s -O --output-dir $(pwd)/BIOS/ -L \
 			https://gitlab.com/evlaV/jupiter-hw-support/-/raw/7ffc22a4dc083c005e26676d276bdbd90dd1de5e/usr/share/jupiter_bios/F7A0121_sign.fd
 
+		echo downloading Steam Deck LCD - Jupiter BIOS F7A0131
+		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+			https://gitlab.com/evlaV/jupiter-hw-support/-/raw/eb91bebf4c2e5229db071720250d80286368e4e2/usr/share/jupiter_bios/F7A0131_sign.fd
+
 		echo Steam Deck LCD - Jupiter BIOS download complete!
 	
 	elif [ $MODEL = "Galileo" ]
@@ -282,6 +286,10 @@ then
 		echo downloading Steam Deck OLED - Galileo BIOS F7G0109
 		curl -s -O --output-dir $(pwd)/BIOS/ -L \
 			https://gitlab.com/evlaV/jupiter-hw-support/-/raw/7ffc22a4dc083c005e26676d276bdbd90dd1de5e/usr/share/jupiter_bios/F7G0109_sign.fd
+
+		echo downloading Steam Deck OLED - Galileo BIOS F7G0110
+		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+			https://gitlab.com/evlaV/jupiter-hw-support/-/raw/eb91bebf4c2e5229db071720250d80286368e4e2/usr/share/jupiter_bios/F7G0110_sign.fd
 	fi
 
 # verify the BIOS md5 hash is good
