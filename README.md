@@ -2,7 +2,7 @@
 
 A shell script to easily unlock, download, flash, create BIOS backups, and block / unblock BIOS updates for the Steam Deck running on SteamOS.
 
-Thanks to smokeless and stanto for the PBC and CBS unlock!
+Thanks to smokeless and stanto for the PBS and CBS unlock!
 
 No BIOS files are included in this repository - the signed BIOS files are downloaded on-the-fly from evlaV gitlab repository.
 
