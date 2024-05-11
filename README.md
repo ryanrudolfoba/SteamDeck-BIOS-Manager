@@ -12,6 +12,7 @@ make\
 cmake\
 glibc\
 glib2\
+linux-api-headers\
 pciutils
 
 **DO NOT DELETE / MODIFY THE MD5.TXT FILE!** \
