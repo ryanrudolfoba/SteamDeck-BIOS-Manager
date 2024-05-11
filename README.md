@@ -2,7 +2,17 @@
 
 A shell script to easily unlock, download, flash, create BIOS backups, and block / unblock BIOS updates for the Steam Deck running on SteamOS.
 
-No BIOS files or binaries are included in this repository - all the neeed files are downloaded on-the-fly in the evlaV gitlab repository.
+Thanks to smokeless and stanto for the PBC and CBS unlock!
+
+No BIOS files are included in this repository - the signed BIOS files are downloaded on-the-fly from evlaV gitlab repository.
+
+OPTIONAL - ryzenadj precompiled / built using SteamOS. If you want to build it your own then you need this additional packages -\
+gcc\
+make\
+cmake\
+glibc\
+glib2\
+pciutils
 
 **DO NOT DELETE / MODIFY THE MD5.TXT FILE!** \
 It contains the md5 hash of the signed BIOS files. If this is modified then the hash sanity check will fail and you wont be able to use this tool to easily flash BIOS.
@@ -36,6 +46,12 @@ It contains the md5 hash of the signed BIOS files. If this is modified then the 
 <p align="center">
 <a href="https://youtu.be/hp5ue4m2Xus?si=7cKOB43jIsiEjp2c"> <img src="https://github.com/ryanrudolfoba/SteamDeck-BIOS-Manager/blob/main/banner.png"/> </a>
 </p>
+
+## What's New (as of May 10 2024)
+1. Supports latest BIOS F7A0131 and F7G0110
+2. Added SREP to be able to unlock CBS and PBS (thanks smokeless and [stanto](https://www.stanto.com/steam-deck/how-to-unlock-the-lcd-and-oled-steam-deck-bios-for-increased-tdp-and-other-features/))
+3. SREP works from within the internal SSD ESP partition (no need for USB flash drive!)
+4. Added precompiled ryzenadj
 
 ## What's New (as of April 10 2024)
 1. Added support for both Steam Deck LCD and OLED models.
