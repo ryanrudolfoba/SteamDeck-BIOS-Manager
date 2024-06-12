@@ -2,7 +2,8 @@
 
 A shell script to easily unlock, download, flash, create BIOS backups, and block / unblock BIOS updates for the Steam Deck running on SteamOS.
 
-Thanks to smokeless and stanto for the PBS and CBS unlock!
+**Thanks to [smokeless](https://github.com/SmokelessCPUv2/) and [stanto](https://stanto.com) for the PBS and CBS unlock!\
+Thanks to [evlaV gitlab repo](https://gitlab.com/evlaV/jupiter-PKGBUILD) for hosting the Steam Deck (SteamOS 3.x) source code public mirror. Sourced from Valve's latest official (main) source packages.**
 
 No BIOS files are included in this repository - the signed BIOS files are downloaded on-the-fly from evlaV gitlab repository.
 
