@@ -225,11 +225,11 @@ then
 			if [ $MODEL = "Jupiter" ]
 			then
 				echo Downloading Steam Deck LCD - Jupiter SREP  files. Please wait.
-				curl -s -o $MODEL-SREP.zip https://www.stanto.com/files/toolkit_to_unlock_LCD_1.0.zip
+				curl -s -o $MODEL-SREP.zip https://www.stanto.com/files/toolkit_to_unlock.zip
 			elif [ $MODEL = "Galileo" ]
 			then
 				echo Downloading Steam Deck OLED - Galileo SREP files. Please wait.
-				curl -s -o $MODEL-SREP.zip https://www.stanto.com/files/toolkit_to_unlock_OLED_1.0.zip
+				curl -s -o $MODEL-SREP.zip https://www.stanto.com/files/toolkit_to_unlock.zip
 			fi
 
 			# Unzip the SREP files
