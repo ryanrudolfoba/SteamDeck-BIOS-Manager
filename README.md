@@ -7,42 +7,8 @@ Thanks to [evlaV gitlab repo](https://gitlab.com/evlaV/jupiter-PKGBUILD) for hos
 
 No BIOS files are included in this repository - the signed BIOS files are downloaded on-the-fly from evlaV gitlab repository.
 
-OPTIONAL - ryzenadj precompiled / built using SteamOS. If you want to build it your own then you need this additional packages -\
-gcc\
-make\
-cmake\
-glibc\
-glib2\
-linux-api-headers\
-pciutils
-
 **DO NOT DELETE / MODIFY THE MD5.TXT FILE!** \
 It contains the md5 hash of the signed BIOS files. If this is modified then the hash sanity check will fail and you wont be able to use this tool to easily flash BIOS.
-
-## What's New (as of May 10 2024)
-1. Supports latest BIOS F7A0131 and F7G0110
-2. Added SREP to be able to unlock CBS and PBS (thanks smokeless and [stanto](https://www.stanto.com/steam-deck/how-to-unlock-the-lcd-and-oled-steam-deck-bios-for-increased-tdp-and-other-features/))
-3. SREP works from within the internal SSD ESP partition (no need for USB flash drive!)
-4. Added precompiled ryzenadj
-
-## What's New (as of April 10 2024)
-1. Added support for both Steam Deck LCD and OLED models.
-2. h2offt command now uses the -all parameter.
-3. added new functionality - Prepare a USB flash drive for Crisis Mode BIOS flashing!
-4. code cleanup
-
-## What's New (as of February 10 2024)
-1. Added BIOS F7A0121 for LCD model. This BIOS version does not allow overclock. You still need to downgrade to 116 and run smokeless.
-
-## What's New (as of November 30 2023)
-1. Since OLED cant be unlocked easily, the script will only work on LCD models.
-2. Script will now work on any directory location. (this fixes the issue reported [here](https://github.com/ryanrudolfoba/SteamDeck-BIOS-Manager/issues/4))
-3. Script will ask if user wants to skip the backup. (this will take care of the issue reported [here](https://github.com/ryanrudolfoba/SteamDeck-BIOS-Manager/issues/1))
-
-
-
-## What's New (as of November 18 2023)
-1. initial release
 
 ## What Does it Do?!?
 **Answer: it automates a lot of the functions regarding BIOS operations for the Steam Deck running on SteamOS! \
