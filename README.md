@@ -49,6 +49,11 @@ It contains the md5 hash of the signed BIOS files. If this is modified then the 
 <a href="https://youtu.be/hp5ue4m2Xus?si=7cKOB43jIsiEjp2c"> <img src="https://github.com/ryanrudolfoba/SteamDeck-BIOS-Manager/blob/main/banner.png"/> </a>
 </p>
 
+## What's New (as of September 08 2024)
+1. Supports latest OLED BIOS F7G0112
+2. Updated SREP config thanks [stanto!](https://www.stanto.com/steam-deck/how-to-unlock-the-lcd-and-oled-steam-deck-bios-for-increased-tdp-and-other-features/)
+
+
 ## What's New (as of May 10 2024)
 1. Supports latest BIOS F7A0131 and F7G0110
 2. Added SREP to be able to unlock CBS and PBS (thanks smokeless and [stanto](https://www.stanto.com/steam-deck/how-to-unlock-the-lcd-and-oled-steam-deck-bios-for-increased-tdp-and-other-features/))
