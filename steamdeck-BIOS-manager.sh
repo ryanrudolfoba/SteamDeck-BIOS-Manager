@@ -221,17 +221,12 @@ then
 
 		elif [ "$SREP_Choice" == "ENABLE" ]
 		then
-			# Download SREP files
-			if [ $MODEL = "Jupiter" ]
-			then
-				echo Downloading Steam Deck LCD - Jupiter SREP  files. Please wait.
-				curl -s -o $MODEL-SREP.zip https://www.stanto.com/files/toolkit_to_unlock_LCD_1.0.zip
-			elif [ $MODEL = "Galileo" ]
-			then
-				echo Downloading Steam Deck OLED - Galileo SREP files. Please wait.
-				curl -s -o $MODEL-SREP.zip https://www.stanto.com/files/toolkit_to_unlock_OLED_1.0.zip
-			fi
+			# cleanup old SREP config files
+			echo -e "$PASSWORD\n" | sudo -S rm -rf /esp/efi/$MODEL-SREP /esp/SREP.log /esp/SREP_Config.cfg
 
+			# Download SREP files
+			echo Downloading Steam Deck SREP  files. Please wait.
+			curl -s -o $MODEL-SREP.zip https://www.stanto.com/files/toolkit_to_unlock.zip
 			# Unzip the SREP files
 			mkdir $(pwd)/$MODEL-SREP
 			unzip -j -d $(pwd)/$MODEL-SREP $(pwd)/$MODEL-SREP.zip
@@ -374,6 +369,10 @@ then
 	elif [ $MODEL = "Galileo" ]
 	then
 		echo Downloading Steam Deck OLED - Galileo BIOS files. Please wait.
+		echo downloading Steam Deck OLED - Galileo BIOS F7G0112
+		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+			https://gitlab.com/evlaV/jupiter-hw-support/-/raw/6101a30a621a2119e8c5213e872b268973659964/usr/share/jupiter_bios/F7G0112_sign.fd
+		
 		echo downloading Steam Deck OLED - Galileo BIOS F7G0107
 		curl -s -O --output-dir $(pwd)/BIOS/ -L \
 			https://gitlab.com/evlaV/jupiter-hw-support/-/raw/a43e38819ba20f363bdb5bedcf3f15b75bf79323/usr/share/jupiter_bios/F7G0107_sign.fd
