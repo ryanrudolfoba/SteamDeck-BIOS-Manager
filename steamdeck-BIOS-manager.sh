@@ -226,7 +226,8 @@ then
 
 			# Download SREP files
 			echo Downloading Steam Deck SREP  files. Please wait.
-			curl -s -o $MODEL-SREP.zip https://www.stanto.com/files/toolkittounlock-stanto.zip
+			#curl -s -o $MODEL-SREP.zip https://www.stanto.com/files/toolkittounlock-stanto.zip
+			cp ./extras/SREP.zip $MODEL-SREP.zip
 			# Unzip the SREP files
 			mkdir $(pwd)/$MODEL-SREP
 			unzip -j -d $(pwd)/$MODEL-SREP $(pwd)/$MODEL-SREP.zip
