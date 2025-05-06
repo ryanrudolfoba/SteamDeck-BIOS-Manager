@@ -208,6 +208,22 @@ then
 
 elif [ "$Choice" == "SREP" ]
 then
+	# display SREP warning and additional info
+	zenity --question --title "Steam Deck BIOS Manager" --text \
+		"WARNING: This is for educational and research purposes only! \
+		\n\nSREP override config is from https://stanto.com \
+		\n\nIt is suggested to familiarize yourself with what the SREP does by visiting his blog. \
+		\n\n\nDo you want to open browser window to read more details on https://stanto.com ? \
+		\n\nOnce you are done reading on https://stanto.com you can close the browser window and return to this script." --width 650 --height 75
+
+		if [ $? -eq 1 ]
+		then
+			echo User pressed NO. Proceed with the script.
+		else
+			echo User pressed YES. Launch browser window and continue with the script.
+			xdg-open https://www.stanto.com/steam-deck/how-to-unlock-the-lcd-and-oled-steam-deck-bios-for-increased-tdp-and-other-features/ &> /dev/null
+		fi
+
 	clear
 	SREP_Choice=$(zenity --width 660 --height 220 --list --radiolist --multiple --title "Waydroid Toolbox" \
 		--column "Select One" --column "Option" --column="Description - Read this carefully!"\
