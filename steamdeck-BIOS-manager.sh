@@ -380,6 +380,114 @@ then
 		curl -s -O --output-dir $(pwd)/BIOS/ -L \
 			https://gitlab.com/evlaV/jupiter-hw-support/-/raw/eb91bebf4c2e5229db071720250d80286368e4e2/usr/share/jupiter_bios/F7A0131_sign.fd
 
+		echo downloading Steam Deck LCD - Jupiter BIOS F7A0110_DeckHD
+		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+			https://www.deckhd.com/downloads/F7A0110_DeckHD.fd
+
+		echo downloading Steam Deck LCD - Jupiter BIOS F7A0113_DeckHD
+		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+			https://www.deckhd.com/downloads/F7A0113_DeckHD.fd
+
+		echo downloading Steam Deck LCD - Jupiter BIOS F7A0115_DeckHD
+		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+			https://www.deckhd.com/downloads/F7A0115_DeckHD.fd
+
+		echo downloading Steam Deck LCD - Jupiter BIOS F7A0116_DeckHD
+		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+			https://www.deckhd.com/downloads/F7A0117_DeckHD.fd
+
+		echo downloading Steam Deck LCD - Jupiter BIOS F7A0118_DeckHD
+		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+			https://www.deckhd.com/downloads/F7A0118_DeckHD.fd
+
+		echo downloading Steam Deck LCD - Jupiter BIOS F7A0119_DeckHD
+		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+			https://www.deckhd.com/downloads/F7A0119_DeckHD.fd
+
+		echo downloading Steam Deck LCD - Jupiter BIOS F7A0120_DeckHD
+		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+			https://www.deckhd.com/downloads/F7A0120_DeckHD.fd
+
+		echo downloading Steam Deck LCD - Jupiter BIOS F7A0121_DeckHD
+		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+			https://www.deckhd.com/downloads/F7A0121_DeckHD.fd
+
+		echo downloading Steam Deck LCD - Jupiter BIOS F7A0131_DeckHD
+		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+			https://www.deckhd.com/downloads/F7A0131_DeckHD.fd
+
+		echo downloading Steam Deck LCD - Jupiter BIOS F7A0110_DeckHD_32GB
+		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+			https://balika011.hu/deck_32gb/F7A0110_DeckHD_32GB.fd
+
+		echo downloading Steam Deck LCD - Jupiter BIOS F7A0113_DeckHD_32GB
+		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+			https://balika011.hu/deck_32gb/F7A0113_DeckHD_32GB.fd
+
+		echo downloading Steam Deck LCD - Jupiter BIOS F7A0115_DeckHD_32GB
+		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+			https://balika011.hu/deck_32gb/F7A0115_DeckHD_32GB.fd
+
+		echo downloading Steam Deck LCD - Jupiter BIOS F7A0116_DeckHD_32GB
+		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+			https://balika011.hu/deck_32gb/F7A0116_DeckHD_32GB.fd
+
+		echo downloading Steam Deck LCD - Jupiter BIOS F7A0118_DeckHD_32GB
+		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+			https://balika011.hu/deck_32gb/F7A0118_DeckHD_32GB.fd
+
+		echo downloading Steam Deck LCD - Jupiter BIOS F7A0119_DeckHD_32GB
+		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+			https://balika011.hu/deck_32gb/F7A0119_DeckHD_32GB.fd
+
+		echo downloading Steam Deck LCD - Jupiter BIOS F7A0120_DeckHD_32GB
+		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+			https://balika011.hu/deck_32gb/F7A0120_DeckHD_32GB.fd
+
+		echo downloading Steam Deck LCD - Jupiter BIOS F7A0121_DeckHD_32GB
+		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+			https://balika011.hu/deck_32gb/F7A0121_DeckHD_32GB.fd
+
+		echo downloading Steam Deck LCD - Jupiter BIOS F7A0131_DeckHD_32GB
+		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+			https://balika011.hu/deck_32gb/F7A0131_DeckHD_32GB.fd
+
+		echo downloading Steam Deck LCD - Jupiter BIOS F7A0110_32GB
+		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+			https://balika011.hu/deck_32gb/F7A0110_32GB.fd
+
+		echo downloading Steam Deck LCD - Jupiter BIOS F7A0113_32GB
+		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+			https://balika011.hu/deck_32gb/F7A0113_32GB.fd
+
+		echo downloading Steam Deck LCD - Jupiter BIOS F7A0115_32GB
+		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+			https://balika011.hu/deck_32gb/F7A0115_32GB.fd
+
+		echo downloading Steam Deck LCD - Jupiter BIOS F7A0116_32GB
+		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+			https://balika011.hu/deck_32gb/F7A0116_32GB.fd
+
+		echo downloading Steam Deck LCD - Jupiter BIOS F7A0118_32GB
+		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+			https://balika011.hu/deck_32gb/F7A0116_32GB.fd
+
+		echo downloading Steam Deck LCD - Jupiter BIOS F7A0119_32GB
+		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+			https://balika011.hu/deck_32gb/F7A0119_32GB.fd
+
+		echo downloading Steam Deck LCD - Jupiter BIOS F7A0120_32GB
+		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+			https://balika011.hu/deck_32gb/F7A0120_32GB.fd
+
+		echo downloading Steam Deck LCD - Jupiter BIOS F7A0121_32GB
+		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+			https://balika011.hu/deck_32gb/F7A0121_32GB.fd
+
+		echo downloading Steam Deck LCD - Jupiter BIOS F7A0131_32GB
+		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+			https://balika011.hu/deck_32gb/F7A0131_32GB.fd
+
 		echo Steam Deck LCD - Jupiter BIOS download complete!
 	
 	elif [ $MODEL = "Galileo" ]
