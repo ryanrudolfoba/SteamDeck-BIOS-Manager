@@ -49,6 +49,10 @@ It contains the md5 hash of the signed BIOS files. If this is modified then the 
 <a href="https://youtu.be/hp5ue4m2Xus?si=7cKOB43jIsiEjp2c"> <img src="https://github.com/ryanrudolfoba/SteamDeck-BIOS-Manager/blob/main/banner.png"/> </a>
 </p>
 
+## What's New (as of August 25 2025)
+1. Supports latest LCD BIOS F7A0133
+2. Support custom BIOS for DeckHD, DeckHD_32GB (DeckHD + 32GB memory), 32GB memory
+
 ## What's New (as of September 08 2024)
 1. Supports latest OLED BIOS F7G0112
 2. Updated SREP config thanks [stanto!](https://www.stanto.com/steam-deck/how-to-unlock-the-lcd-and-oled-steam-deck-bios-for-increased-tdp-and-other-features/)
