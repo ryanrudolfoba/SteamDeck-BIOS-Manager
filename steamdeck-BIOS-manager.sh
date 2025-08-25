@@ -380,6 +380,10 @@ then
 		curl -s -O --output-dir $(pwd)/BIOS/ -L \
 			https://gitlab.com/evlaV/jupiter-hw-support/-/raw/eb91bebf4c2e5229db071720250d80286368e4e2/usr/share/jupiter_bios/F7A0131_sign.fd
 
+		echo downloading Steam Deck LCD - Jupiter BIOS F7A0133
+		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+			https://gitlab.com/evlaV/jupiter-hw-support/-/raw/eb91bebf4c2e5229db071720250d80286368e4e2/usr/share/jupiter_bios/F7A0133_sign.fd
+
 		echo downloading Steam Deck LCD - Jupiter BIOS F7A0110_DeckHD
 		curl -s -O --output-dir $(pwd)/BIOS/ -L \
 			https://www.deckhd.com/downloads/F7A0110_DeckHD.fd
