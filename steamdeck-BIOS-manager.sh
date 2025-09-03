@@ -474,7 +474,7 @@ then
 
 		echo downloading Steam Deck LCD - Jupiter BIOS F7A0118_32GB
 		curl -s -O --output-dir $(pwd)/BIOS/ -L \
-			https://balika011.hu/deck_32gb/F7A0116_32GB.fd
+			https://balika011.hu/deck_32gb/F7A0118_32GB.fd
 
 		echo downloading Steam Deck LCD - Jupiter BIOS F7A0119_32GB
 		curl -s -O --output-dir $(pwd)/BIOS/ -L \
