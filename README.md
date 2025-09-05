@@ -49,7 +49,7 @@ It contains the md5 hash of the signed BIOS files. If this is modified then the 
 <a href="https://youtu.be/hp5ue4m2Xus?si=7cKOB43jIsiEjp2c"> <img src="https://github.com/ryanrudolfoba/SteamDeck-BIOS-Manager/blob/main/banner.png"/> </a>
 </p>
 
-## What's New (as of August 25 2025)
+## What's New (as of September 05 2025)
 1. Added ShadeTechnik custom BIOS to support custom DeckSight OLED panel on OG Steam Deck LCD model.
 
 ## What's New (as of August 25 2025)
