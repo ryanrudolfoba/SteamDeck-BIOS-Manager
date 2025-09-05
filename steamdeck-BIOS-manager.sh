@@ -492,6 +492,12 @@ then
 		curl -s -O --output-dir $(pwd)/BIOS/ -L \
 			https://balika011.hu/deck_32gb/F7A0131_32GB.fd
 
+		echo downloading Steam Deck LCD - Jupiter BIOS from ShadeTechnik / DeckSight
+  		curl -s https://api.github.com/repos/ShadeTechnik/DeckSight-Public/releases/latest | \
+			grep "browser_download_url" | cut -d "\"" -f4 | wget --quiet --no-clobber --input-file -
+
+  		tar -xvf DeckSight.tar.gz -C $(pwd)/BIOS --strip-components=1 bios/F*.fd
+  		
 		echo Steam Deck LCD - Jupiter BIOS download complete!
 	
 	elif [ $MODEL = "Galileo" ]
