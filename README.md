@@ -50,6 +50,9 @@ It contains the md5 hash of the signed BIOS files. If this is modified then the 
 </p>
 
 ## What's New (as of August 25 2025)
+1. Added ShadeTechnik custom BIOS to support custom DeckSight OLED panel on OG Steam Deck LCD model.
+
+## What's New (as of August 25 2025)
 1. Supports latest LCD BIOS F7A0133
 2. Support custom BIOS for DeckHD, DeckHD_32GB (DeckHD + 32GB memory), 32GB memory
 
