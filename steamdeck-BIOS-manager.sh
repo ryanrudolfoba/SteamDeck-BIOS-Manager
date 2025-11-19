@@ -540,7 +540,7 @@ then
 elif [ "$Choice" == "FLASH" ]
 then
 	clear
-	ls $(pwd)/BIOS/F7?????_sign.fd &> /dev/null
+	ls $(pwd)/BIOS/F7?????_*.fd &> /dev/null
 	if [ $? -eq 0 ]
 	then
 		BIOS_Choice=$(zenity --title "Steam Deck BIOS Manager" --width 400 --height 400 --list \
