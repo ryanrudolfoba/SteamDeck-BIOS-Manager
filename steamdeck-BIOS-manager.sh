@@ -544,7 +544,7 @@ then
 	if [ $? -eq 0 ]
 	then
 		BIOS_Choice=$(zenity --title "Steam Deck BIOS Manager" --width 400 --height 400 --list \
-			--column "BIOS Version" $(ls -l $(pwd)/BIOS/F7?????_sign.fd | sed s/^.*\\/\//) )
+			--column "BIOS Version" $(ls -l $(pwd)/BIOS/F7?????_*.fd | sed s/^.*\\/\//) )
 		if [ $? -eq 1 ]
 		then
 			echo User pressed CANCEL. Go back to main menu!
