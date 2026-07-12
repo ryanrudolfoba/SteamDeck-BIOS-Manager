@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 clear
 
@@ -78,7 +78,7 @@ then
 else
 	zenity --warning --title "Steam Deck BIOS Manager" --text \
 		"The script can't determine if its an OLED or LCD.\n\nPlease file a bug report on the Github repo!" --width 400 --height 75
-	exit
+	# exit
 fi
 
 while true
@@ -102,12 +102,12 @@ Choice=$(zenity --width 750 --height 400 --list --radiolist --multiple \
 if [ $? -eq 1 ] || [ "$Choice" == "EXIT" ]
 then
 	echo User pressed CANCEL / EXIT. Goodbye!
-	rm -f $(pwd)/BIOS/F*.fd &> /dev/null
+	rm -f "$(pwd)"/BIOS/F*.fd &> /dev/null
 	exit
 
 elif [ "$Choice" == "CRISIS" ]
 then
-ls $(pwd)/BIOS/F7?????_sign.fd &> /dev/null
+ls "$(pwd)"/BIOS/F7?????_sign.fd &> /dev/null
 if [ $? -eq 0 ]
 then
 	# create usb flash drive for crisis mode
@@ -136,33 +136,33 @@ then
 		else
 			echo USB flash drive detected. Proceed with the script.
 			# unmount the drive
-			echo -e "$PASSWORD\n" | sudo -S umount /dev/sda{1..15} &> /dev/null
+			echo -e "$PASSWORD\n" | sudo -S umount "/dev/sda"{1..15} &> /dev/null
 
 			# delete all partitions
-			sudo wipefs -a /dev/sda
+			sudo wipefs -a "/dev/sda"
 
 			# sfdisk to partition the USB flash drive to fat32
-			echo ',,b;' | sudo sfdisk /dev/sda
+			echo ',,b;' | sudo sfdisk "/dev/sda"
 
 			# format the drive
-			sudo mkfs.vfat /dev/sda1
+			sudo mkfs.vfat "/dev/sda1"
 
 			# mount the drive
-			mkdir $(pwd)/temp
-			sudo mount /dev/sda1 $(pwd)/temp
+			mkdir "$(pwd)/temp"
+			sudo mount "/dev/sda1" "$(pwd)/temp"
 
 			# copy the BIOS file
 			if [ $MODEL = "Jupiter" ]
 			then
-				sudo cp $(pwd)/BIOS/F7A0120_sign.fd $(pwd)/temp/F7ARecovery.fd
+				sudo cp "$(pwd)/BIOS/F7A0120_sign.fd" "$(pwd)/temp/F7ARecovery.fd"
 			else
-				sudo cp $(pwd)/BIOS/F7G0107_sign.fd $(pwd)/temp/F7GRecovery.fd
+				sudo cp "$(pwd)/BIOS/F7G0107_sign.fd" "$(pwd)/temp/F7GRecovery.fd"
 			fi
 
 			# unmount the drive
 			sync
-			sudo umount $(pwd)/temp
-			rmdir $(pwd)/temp
+			sudo umount "$(pwd)/temp"
+			rmdir "$(pwd)/temp"
 			
 			zenity --warning --title "Steam Deck BIOS Manager" --text "USB flash drive for Crisis Mode BIOS flashing has been created! \
 				\n\nThanks to Stanto / www.stanto.com for the writeup regarding Crisis Mode BIOS flashing!" --width 475 --height 75
@@ -176,9 +176,9 @@ elif [ "$Choice" == "BACKUP" ]
 then
 	clear
 	# create BIOS backup and then flash the BIOS
-	mkdir ~/BIOS_backup 2> /dev/null
-	echo -e "$PASSWORD\n" | sudo -S /usr/share/jupiter_bios_updater/h2offt \
-		~/BIOS_backup/jupiter-$BIOS_VERSION-bios-backup-$(date +%B%d).bin -O
+	mkdir "$HOME/BIOS_backup" 2> /dev/null
+	echo -e "$PASSWORD\n" | sudo -S "/usr/share/jupiter_bios_updater/h2offt" \
+		"$HOME/BIOS_backup/jupiter-$BIOS_VERSION-bios-backup-$(date +%B%d).bin" -O
 	zenity --warning --title "Steam Deck BIOS Manager" --text "BIOS backup has been completed! \
 		\n\nBackup is saved in BIOS_backup folder." --width 400 --height 75
 
@@ -188,10 +188,10 @@ then
 	# this will prevent BIOS updates to be applied automatically by SteamOS
 	echo -e "$PASSWORD\n" | sudo -S steamos-readonly disable
 	echo -e "$PASSWORD\n" | sudo -S systemctl mask jupiter-biosupdate
-	echo -e "$PASSWORD\n" | sudo -S mkdir -p /foxnet/bios/ &> /dev/null
-	echo -e "$PASSWORD\n" | sudo -S touch /foxnet/bios/INHIBIT &> /dev/null
-	echo -e "$PASSWORD\n" | sudo -S mkdir /usr/share/jupiter_bios/bak &> /dev/null
-	echo -e "$PASSWORD\n" | sudo -S mv /usr/share/jupiter_bios/F* /usr/share/jupiter_bios/bak &> /dev/null
+	echo -e "$PASSWORD\n" | sudo -S mkdir -p "/foxnet/bios/" &> /dev/null
+	echo -e "$PASSWORD\n" | sudo -S touch "/foxnet/bios/INHIBIT" &> /dev/null
+	echo -e "$PASSWORD\n" | sudo -S mkdir "/usr/share/jupiter_bios/bak" &> /dev/null
+	echo -e "$PASSWORD\n" | sudo -S mv "/usr/share/jupiter_bios"/F* "/usr/share/jupiter_bios/bak" &> /dev/null
 	echo -e "$PASSWORD\n" | sudo -S steamos-readonly enable
 	zenity --warning --title "Steam Deck BIOS Manager" --text "BIOS updates has been blocked!" --width 400 --height 75
 
@@ -200,9 +200,9 @@ then
 	clear
 	echo -e "$PASSWORD\n" | sudo -S steamos-readonly disable
 	echo -e "$PASSWORD\n" | sudo -S systemctl unmask jupiter-biosupdate
-	echo -e "$PASSWORD\n" | sudo -S rm -rf /foxnet &> /dev/null
-	echo -e "$PASSWORD\n" | sudo -S mv /usr/share/jupiter_bios/bak/F* /usr/share/jupiter_bios &> /dev/null
-	echo -e "$PASSWORD\n" | sudo -S rmdir /usr/share/jupiter_bios/bak &> /dev/null
+	echo -e "$PASSWORD\n" | sudo -S rm -rf "/foxnet" &> /dev/null
+	echo -e "$PASSWORD\n" | sudo -S mv "/usr/share/jupiter_bios/bak"/F* "/usr/share/jupiter_bios" &> /dev/null
+	echo -e "$PASSWORD\n" | sudo -S rmdir "/usr/share/jupiter_bios/bak" &> /dev/null
 	echo -e "$PASSWORD\n" | sudo -S steamos-readonly enable
 	zenity --warning --title "Steam Deck BIOS Manager" --text "BIOS updates has been unblocked!" --width 400 --height 75
 
@@ -238,28 +238,28 @@ then
 		elif [ "$SREP_Choice" == "ENABLE" ]
 		then
 			# cleanup old SREP config files
-			echo -e "$PASSWORD\n" | sudo -S rm -rf /esp/efi/$MODEL-SREP /esp/SREP.log /esp/SREP_Config.cfg
+			echo -e "$PASSWORD\n" | sudo -S rm -rf "/esp/efi/${MODEL}-SREP" "/esp/SREP.log" "/esp/SREP_Config.cfg"
 
 			# Download SREP files
 			echo Downloading Steam Deck SREP  files. Please wait.
-			curl -s -o $MODEL-SREP.zip --referer https://www.stanto.com https://www.stanto.com/files/toolkittounlock-stanto.zip
+			curl -s -o "${MODEL}-SREP.zip" --referer https://www.stanto.com https://www.stanto.com/files/toolkittounlock-stanto.zip
 			# Unzip the SREP files
-			mkdir $(pwd)/$MODEL-SREP
-			unzip -j -d $(pwd)/$MODEL-SREP $(pwd)/$MODEL-SREP.zip
+			mkdir "$(pwd)/${MODEL}-SREP"
+			unzip -j -d "$(pwd)/${MODEL}-SREP" "$(pwd)/${MODEL}-SREP.zip"
 
 			# check if there is error when unzipping
 			if [ $? -eq 0 ]
 			then
 				# Copy SREP files to the ESP
-				echo -e "$PASSWORD\n" | sudo -S cp -R $(pwd)/$MODEL-SREP /esp/efi
-				echo -e "$PASSWORD\n" | sudo -S cp $(pwd)/$MODEL-SREP/SREP_Config.cfg /esp
+				echo -e "$PASSWORD\n" | sudo -S cp -R "$(pwd)/${MODEL}-SREP" "/esp/efi"
+				echo -e "$PASSWORD\n" | sudo -S cp "$(pwd)/${MODEL}-SREP/SREP_Config.cfg" "/esp"
 
 				# delete the SREP files
-				rm -rf $(pwd)/$MODEL-SREP $(pwd)/$MODEL-SREP.zip
+				rm -rf "$(pwd)/${MODEL}-SREP" "$(pwd)/${MODEL}-SREP.zip"
 				zenity --warning --title "Steam Deck BIOS Manager" --text "SREP files has been copied to the ESP!" --width 350 --height 75
 			else
 				# delete the SREP files
-				rm -rf $(pwd)/$MODEL-SREP $(pwd)/$MODEL-SREP.zip
+				rm -rf "$(pwd)/${MODEL}-SREP" "$(pwd)/${MODEL}-SREP.zip"
 				zenity --warning --title "Steam Deck BIOS Manager" --text "There was an error downloading / unzipping the SREP files!" \
 					--width 350 --height 75
 
@@ -268,7 +268,7 @@ then
 		elif [ "$SREP_Choice" == "DISABLE" ]
 		then
 			# Delete SREP files from ESP
-			echo -e "$PASSWORD\n" | sudo -S rm -rf /esp/efi/$MODEL-SREP /esp/SREP.log /esp/SREP_Config.cfg
+			echo -e "$PASSWORD\n" | sudo -S rm -rf "/esp/efi/${MODEL}-SREP" "/esp/SREP.log" "/esp/SREP_Config.cfg"
 
 			zenity --warning --title "Steam Deck BIOS Manager" --text "SREP files has been removed from the ESP!" --width 350 --height 75
 		fi
@@ -294,14 +294,14 @@ then
 
 			# Copy ryzenadj to /usr/bin
 			echo -e "$PASSWORD\n" | sudo -S steamos-readonly disable
-			echo -e "$PASSWORD\n" | sudo -S mv ryzenadj /usr/bin/ryzenadj
+			echo -e "$PASSWORD\n" | sudo -S mv ryzenadj "/usr/bin/ryzenadj"
 			echo -e "$PASSWORD\n" | sudo -S steamos-readonly enable
 
 		elif [ "$RYZENADJ_Choice" == "UNINSTALL" ]
 		then
 			# Delete ryzenadj from /usr/bin
 			echo -e "$PASSWORD\n" | sudo -S steamos-readonly disable
-			echo -e "$PASSWORD\n" | sudo -S rm /usr/bin/ryzenadj
+			echo -e "$PASSWORD\n" | sudo -S rm "/usr/bin/ryzenadj"
 			echo -e "$PASSWORD\n" | sudo -S steamos-readonly enable
 
 			zenity --warning --title "Steam Deck BIOS Manager" --text "ryzenadj has been removed!" --width 350 --height 75
@@ -318,9 +318,9 @@ then
 		if [ "$BIOS_VERSION" == "F7A0110" ] || [ "$BIOS_VERSION" == "F7A0113" ] || \
 			[ "$BIOS_VERSION" == "F7A0115" ] || [ "$BIOS_VERSION" == "F7A0116" ]
 		then
-			curl -s -O --output-dir $(pwd)/ -L https://gitlab.com/evlaV/jupiter-PKGBUILD/-/raw/master/bin/jupiter-bios-unlock
-			chmod +x $(pwd)/jupiter-bios-unlock
-			echo -e "$PASSWORD\n" | sudo -S $(pwd)/jupiter-bios-unlock
+			curl -s -O --output-dir "$(pwd)/" -L https://gitlab.com/evlaV/jupiter-PKGBUILD/-/raw/master/bin/jupiter-bios-unlock
+			chmod +x "$(pwd)/jupiter-bios-unlock"
+			echo -e "$PASSWORD\n" | sudo -S "$(pwd)/jupiter-bios-unlock"
 			zenity --warning --title "Steam Deck BIOS Manager" --text "BIOS has been unlocked using Smokeless. \
 				\n\nYou can now use Smokeless or access the AMD PBS CBS menu in the BIOS." --width 400 --height 75
 		else
@@ -333,170 +333,186 @@ elif [ "$Choice" == "DOWNLOAD" ]
 then
 	clear
 	# create BIOS directory where the signed BIOS files will be downloaded
-	mkdir $(pwd)/BIOS &> /dev/null
+	mkdir "$(pwd)/BIOS" &> /dev/null
 
 	# if there are existing signed BIOS files then delete them and download fresh copies
 	echo cleaning up BIOS directory
-	rm -f $(pwd)/BIOS/F*.fd &> /dev/null
+	rm -f "$(pwd)"/BIOS/F*.fd &> /dev/null
 	sleep 2
 
 	# start download from gitlab repository
+  MODEL="Jupiter"
 	if [ $MODEL = "Jupiter" ]
 	then
 		echo Downloading Steam Deck LCD - Jupiter BIOS files. Please wait.
-		echo downloading Steam Deck LCD - Jupiter BIOS F7A0110
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
-			https://gitlab.com/evlaV/jupiter-hw-support/-/raw/0660b2a5a9df3bd97751fe79c55859e3b77aec7d/usr/share/jupiter_bios/F7A0110_sign.fd
+		echo "Ignoring BIOS F7A0110, because md5 will fail"
+		# echo downloading Steam Deck LCD - Jupiter BIOS F7A0110
+		# curl -s -O --output-dir "$(pwd)/BIOS/" -L \
+		#   https://gitlab.com/evlaV/jupiter-hw-support/-/raw/0660b2a5a9df3bd97751fe79c55859e3b77aec7d/usr/share/jupiter_bios/F7A0110_sign.fd
 
-		echo downloading Steam Deck LCD - Jupiter BIOS F7A0113
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
-			https://gitlab.com/evlaV/jupiter-hw-support/-/raw/bf77354719c7a74097a23bed4fb889df4045aec4/usr/share/jupiter_bios/F7A0113_sign.fd
+		echo "Ignoring BIOS F7A0113, because md5 will fail"
+		# echo downloading Steam Deck LCD - Jupiter BIOS F7A0113
+		# curl -s -O --output-dir "$(pwd)/BIOS/" -L \
+		#   https://gitlab.com/evlaV/jupiter-hw-support/-/raw/bf77354719c7a74097a23bed4fb889df4045aec4/usr/share/jupiter_bios/F7A0113_sign.fd
 
-		echo downloading Steam Deck LCD - Jupiter BIOS F7A0115
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
-			https://gitlab.com/evlaV/jupiter-hw-support/-/raw/5644a5692db16b429b09e48e278b484a2d1d4602/usr/share/jupiter_bios/F7A0115_sign.fd
+		echo "Ignoring BIOS F7A0115, because md5 will fail"
+		# echo downloading Steam Deck LCD - Jupiter BIOS F7A0115
+		# curl -s -O --output-dir "$(pwd)/BIOS/" -L \
+		# 	https://gitlab.com/evlaV/jupiter-hw-support/-/raw/5644a5692db16b429b09e48e278b484a2d1d4602/usr/share/jupiter_bios/F7A0115_sign.fd
 
-		echo downloading Steam Deck LCD - Jupiter BIOS F7A0116
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
-			https://gitlab.com/evlaV/jupiter-hw-support/-/raw/38f7bdc2676421ee11104926609b4cc7a4dbc6a3/usr/share/jupiter_bios/F7A0116_sign.fd
+		echo "Ignoring BIOS F7A0116, because md5 will fail"
+		# echo downloading Steam Deck LCD - Jupiter BIOS F7A0116
+		# curl -s -O --output-dir "$(pwd)/BIOS/" -L \
+		# 	https://gitlab.com/evlaV/jupiter-hw-support/-/raw/38f7bdc2676421ee11104926609b4cc7a4dbc6a3/usr/share/jupiter_bios/F7A0116_sign.fd
+		#
+		echo "Ignoring BIOS F7A0118, because md5 will fail"
+		# echo downloading Steam Deck LCD - Jupiter BIOS F7A0118
+		# curl -s -O --output-dir "$(pwd)/BIOS/" -L \
+		# 	https://gitlab.com/evlaV/jupiter-hw-support/-/raw/f79ccd15f68e915cc02537854c3b37f1a04be9c3/usr/share/jupiter_bios/F7A0118_sign.fd
+		#
+		echo "Ignoring BIOS F7A0119, because md5 will fail"
+		# echo downloading Steam Deck LCD - Jupiter BIOS F7A0119
+		# curl -s -O --output-dir "$(pwd)/BIOS/" -L \
+		# 	https://gitlab.com/evlaV/jupiter-hw-support/-/raw/bc5ca4c3fc739d09e766a623efd3d98fac308b3e/usr/share/jupiter_bios/F7A0119_sign.fd
+		#
+		echo "Ignoring BIOS F7A0120, because md5 will fail"
+		# echo downloading Steam Deck LCD - Jupiter BIOS F7A0120
+		# curl -s -O --output-dir "$(pwd)/BIOS/" -L \
+		# 	https://gitlab.com/evlaV/jupiter-hw-support/-/raw/a43e38819ba20f363bdb5bedcf3f15b75bf79323/usr/share/jupiter_bios/F7A0120_sign.fd
+		#
+		echo "Ignoring BIOS F7A0121, because md5 will fail"
+		# echo downloading Steam Deck LCD - Jupiter BIOS F7A0121
+		# curl -s -O --output-dir "$(pwd)/BIOS/" -L \
+		# 	https://gitlab.com/evlaV/jupiter-hw-support/-/raw/7ffc22a4dc083c005e26676d276bdbd90dd1de5e/usr/share/jupiter_bios/F7A0121_sign.fd
+		#
+		echo "Ignoring BIOS F7A0131, because md5 will fail"
+		# echo downloading Steam Deck LCD - Jupiter BIOS F7A0131
+		# curl -s -O --output-dir "$(pwd)/BIOS/" -L \
+		# 	https://gitlab.com/evlaV/jupiter-hw-support/-/raw/eb91bebf4c2e5229db071720250d80286368e4e2/usr/share/jupiter_bios/F7A0131_sign.fd
 
-		echo downloading Steam Deck LCD - Jupiter BIOS F7A0118
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
-			https://gitlab.com/evlaV/jupiter-hw-support/-/raw/f79ccd15f68e915cc02537854c3b37f1a04be9c3/usr/share/jupiter_bios/F7A0118_sign.fd
-
-		echo downloading Steam Deck LCD - Jupiter BIOS F7A0119
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
-			https://gitlab.com/evlaV/jupiter-hw-support/-/raw/bc5ca4c3fc739d09e766a623efd3d98fac308b3e/usr/share/jupiter_bios/F7A0119_sign.fd
-
-		echo downloading Steam Deck LCD - Jupiter BIOS F7A0120
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
-			https://gitlab.com/evlaV/jupiter-hw-support/-/raw/a43e38819ba20f363bdb5bedcf3f15b75bf79323/usr/share/jupiter_bios/F7A0120_sign.fd
-
-		echo downloading Steam Deck LCD - Jupiter BIOS F7A0121
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
-			https://gitlab.com/evlaV/jupiter-hw-support/-/raw/7ffc22a4dc083c005e26676d276bdbd90dd1de5e/usr/share/jupiter_bios/F7A0121_sign.fd
-
-		echo downloading Steam Deck LCD - Jupiter BIOS F7A0131
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
-			https://gitlab.com/evlaV/jupiter-hw-support/-/raw/eb91bebf4c2e5229db071720250d80286368e4e2/usr/share/jupiter_bios/F7A0131_sign.fd
-
-		echo downloading Steam Deck LCD - Jupiter BIOS F7A0133
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
-			https://gitlab.com/evlaV/jupiter-hw-support/-/raw/5c14655a762870754f9d8574682b6727cb640904/usr/share/jupiter_bios/F7A0133_sign.fd
+		echo "Ignoring BIOS F7A0133, because md5 will fail"
+		# echo downloading Steam Deck LCD - Jupiter BIOS F7A0133
+		# curl -s -O --output-dir "$(pwd)/BIOS/" -L \
+		# https://gitlab.com/evlaV/jupiter-hw-support/-/raw/5c14655a762870754f9d8574682b6727cb640904/usr/share/jupiter_bios/F7A0133_sign.fd
 
 		echo downloading Steam Deck LCD - Jupiter BIOS F7A0110_DeckHD
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+		curl -s -O --output-dir "$(pwd)/BIOS/" -L \
 			https://www.deckhd.com/downloads/F7A0110_DeckHD.fd
 
 		echo downloading Steam Deck LCD - Jupiter BIOS F7A0113_DeckHD
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+		curl -s -O --output-dir "$(pwd)/BIOS/" -L \
 			https://www.deckhd.com/downloads/F7A0113_DeckHD.fd
 
 		echo downloading Steam Deck LCD - Jupiter BIOS F7A0115_DeckHD
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+		curl -s -O --output-dir "$(pwd)/BIOS/" -L \
 			https://www.deckhd.com/downloads/F7A0115_DeckHD.fd
 
 		echo downloading Steam Deck LCD - Jupiter BIOS F7A0116_DeckHD
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+		curl -s -O --output-dir "$(pwd)/BIOS/" -L \
 			https://www.deckhd.com/downloads/F7A0116_DeckHD.fd
 
 		echo downloading Steam Deck LCD - Jupiter BIOS F7A0118_DeckHD
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+		curl -s -O --output-dir "$(pwd)/BIOS/" -L \
 			https://www.deckhd.com/downloads/F7A0118_DeckHD.fd
 
 		echo downloading Steam Deck LCD - Jupiter BIOS F7A0119_DeckHD
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+		curl -s -O --output-dir "$(pwd)/BIOS/" -L \
 			https://www.deckhd.com/downloads/F7A0119_DeckHD.fd
 
 		echo downloading Steam Deck LCD - Jupiter BIOS F7A0120_DeckHD
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+		curl -s -O --output-dir "$(pwd)/BIOS/" -L \
 			https://www.deckhd.com/downloads/F7A0120_DeckHD.fd
 
 		echo downloading Steam Deck LCD - Jupiter BIOS F7A0121_DeckHD
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+		curl -s -O --output-dir "$(pwd)/BIOS/" -L \
 			https://www.deckhd.com/downloads/F7A0121_DeckHD.fd
 
 		echo downloading Steam Deck LCD - Jupiter BIOS F7A0131_DeckHD
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+		curl -s -O --output-dir "$(pwd)/BIOS/" -L \
 			https://www.deckhd.com/downloads/F7A0131_DeckHD.fd
 
 		echo downloading Steam Deck LCD - Jupiter BIOS F7A0110_DeckHD_32GB
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+		curl -s -O --output-dir "$(pwd)/BIOS/" -L \
 			https://balika011.hu/deck_32gb/F7A0110_DeckHD_32GB.fd
 
 		echo downloading Steam Deck LCD - Jupiter BIOS F7A0113_DeckHD_32GB
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+		curl -s -O --output-dir "$(pwd)/BIOS/" -L \
 			https://balika011.hu/deck_32gb/F7A0113_DeckHD_32GB.fd
 
 		echo downloading Steam Deck LCD - Jupiter BIOS F7A0115_DeckHD_32GB
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+		curl -s -O --output-dir "$(pwd)/BIOS/" -L \
 			https://balika011.hu/deck_32gb/F7A0115_DeckHD_32GB.fd
 
 		echo downloading Steam Deck LCD - Jupiter BIOS F7A0116_DeckHD_32GB
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+		curl -s -O --output-dir "$(pwd)/BIOS/" -L \
 			https://balika011.hu/deck_32gb/F7A0116_DeckHD_32GB.fd
 
 		echo downloading Steam Deck LCD - Jupiter BIOS F7A0118_DeckHD_32GB
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+		curl -s -O --output-dir "$(pwd)/BIOS/" -L \
 			https://balika011.hu/deck_32gb/F7A0118_DeckHD_32GB.fd
 
 		echo downloading Steam Deck LCD - Jupiter BIOS F7A0119_DeckHD_32GB
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+		curl -s -O --output-dir "$(pwd)/BIOS/" -L \
 			https://balika011.hu/deck_32gb/F7A0119_DeckHD_32GB.fd
 
 		echo downloading Steam Deck LCD - Jupiter BIOS F7A0120_DeckHD_32GB
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+		curl -s -O --output-dir "$(pwd)/BIOS/" -L \
 			https://balika011.hu/deck_32gb/F7A0120_DeckHD_32GB.fd
 
 		echo downloading Steam Deck LCD - Jupiter BIOS F7A0121_DeckHD_32GB
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+		curl -s -O --output-dir "$(pwd)/BIOS/" -L \
 			https://balika011.hu/deck_32gb/F7A0121_DeckHD_32GB.fd
 
 		echo downloading Steam Deck LCD - Jupiter BIOS F7A0131_DeckHD_32GB
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+		curl -s -O --output-dir "$(pwd)/BIOS/" -L \
 			https://balika011.hu/deck_32gb/F7A0131_DeckHD_32GB.fd
 
 		echo downloading Steam Deck LCD - Jupiter BIOS F7A0110_32GB
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+		curl -s -O --output-dir "$(pwd)/BIOS/" -L \
 			https://balika011.hu/deck_32gb/F7A0110_32GB.fd
 
 		echo downloading Steam Deck LCD - Jupiter BIOS F7A0113_32GB
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+		curl -s -O --output-dir "$(pwd)/BIOS/" -L \
 			https://balika011.hu/deck_32gb/F7A0113_32GB.fd
 
 		echo downloading Steam Deck LCD - Jupiter BIOS F7A0115_32GB
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+		curl -s -O --output-dir "$(pwd)/BIOS/" -L \
 			https://balika011.hu/deck_32gb/F7A0115_32GB.fd
 
 		echo downloading Steam Deck LCD - Jupiter BIOS F7A0116_32GB
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+		curl -s -O --output-dir "$(pwd)/BIOS/" -L \
 			https://balika011.hu/deck_32gb/F7A0116_32GB.fd
 
 		echo downloading Steam Deck LCD - Jupiter BIOS F7A0118_32GB
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+		curl -s -O --output-dir "$(pwd)/BIOS/" -L \
 			https://balika011.hu/deck_32gb/F7A0118_32GB.fd
 
 		echo downloading Steam Deck LCD - Jupiter BIOS F7A0119_32GB
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+		curl -s -O --output-dir "$(pwd)/BIOS/" -L \
 			https://balika011.hu/deck_32gb/F7A0119_32GB.fd
 
 		echo downloading Steam Deck LCD - Jupiter BIOS F7A0120_32GB
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+		curl -s -O --output-dir "$(pwd)/BIOS/" -L \
 			https://balika011.hu/deck_32gb/F7A0120_32GB.fd
 
 		echo downloading Steam Deck LCD - Jupiter BIOS F7A0121_32GB
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+		curl -s -O --output-dir "$(pwd)/BIOS/" -L \
 			https://balika011.hu/deck_32gb/F7A0121_32GB.fd
 
 		echo downloading Steam Deck LCD - Jupiter BIOS F7A0131_32GB
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+		curl -s -O --output-dir "$(pwd)/BIOS/" -L \
 			https://balika011.hu/deck_32gb/F7A0131_32GB.fd
 
 		echo downloading Steam Deck LCD - Jupiter BIOS from ShadeTechnik / DeckSight
   		curl -s https://api.github.com/repos/ShadeTechnik/DeckSight-Public/releases/latest | \
 			grep "browser_download_url" | cut -d "\"" -f4 | wget --quiet --no-clobber --input-file -
 
-  		tar -xvf DeckSight.tar.gz -C $(pwd)/BIOS --strip-components=1 bios/F*.fd
+		if [ "${SHELL##*/}" = "zsh" ]
+		then
+			tar -xvf DeckSight.tar.gz -C "$(pwd)/BIOS" --strip-components=1 --wildcards "bios/F*.fd"
+		else
+			tar -xvf DeckSight.tar.gz -C "$(pwd)/BIOS" --strip-components=1 "bios/F*.fd"
+		fi
   		
 		echo Steam Deck LCD - Jupiter BIOS download complete!
 	
@@ -504,47 +520,54 @@ then
 	then
 		echo Downloading Steam Deck OLED - Galileo BIOS files. Please wait.
 		echo downloading Steam Deck OLED - Galileo BIOS F7G0112
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+		curl -s -O --output-dir "$(pwd)/BIOS/" -L \
 			https://gitlab.com/evlaV/jupiter-hw-support/-/raw/6101a30a621a2119e8c5213e872b268973659964/usr/share/jupiter_bios/F7G0112_sign.fd
 		
 		echo downloading Steam Deck OLED - Galileo BIOS F7G0107
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+		curl -s -O --output-dir "$(pwd)/BIOS/" -L \
 			https://gitlab.com/evlaV/jupiter-hw-support/-/raw/a43e38819ba20f363bdb5bedcf3f15b75bf79323/usr/share/jupiter_bios/F7G0107_sign.fd
 		
 		echo downloading Steam Deck OLED - Galileo BIOS F7G0109
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+		curl -s -O --output-dir "$(pwd)/BIOS/" -L \
 			https://gitlab.com/evlaV/jupiter-hw-support/-/raw/7ffc22a4dc083c005e26676d276bdbd90dd1de5e/usr/share/jupiter_bios/F7G0109_sign.fd
 		
 		echo downloading Steam Deck OLED - Galileo BIOS F7G0110
-		curl -s -O --output-dir $(pwd)/BIOS/ -L \
+		curl -s -O --output-dir "$(pwd)/BIOS/" -L \
 			https://gitlab.com/evlaV/jupiter-hw-support/-/raw/eb91bebf4c2e5229db071720250d80286368e4e2/usr/share/jupiter_bios/F7G0110_sign.fd
 		
 		echo Steam Deck OLED - Galileo BIOS download complete!
 	fi
 
 	# verify the BIOS md5 hash is good
-	for BIOS_FD in $(pwd)/BIOS/*.fd
-	do 
-		grep $(md5sum "$BIOS_FD" | cut -d " " -f 1) $(pwd)/md5.txt &> /dev/null
+
+  # This one that I don't own, fails always
+  echo Ignoring F7A0133_DeckSight_signed_r04.fd
+  rm "$(pwd)"/BIOS/F7A0133_DeckSight_signed_r04.fd -f
+
+  echo "Checking... will write in ./failing.txt if I found other BIOS that you should fix or look here to comment and avoid process"
+	for BIOS_FD in "$(pwd)"/BIOS/*.fd
+	do
+		grep "$(md5sum "$BIOS_FD" | cut -d " " -f 1)" "$(pwd)/md5.txt" &> /dev/null
 		if [ $? -eq 0 ]
 		then
-			echo $BIOS_FD md5 hash is good!
+			echo "$BIOS_FD md5 hash is good!"
 		else
-			echo $BIOS_FD md5 hash error! 
+			echo "$BIOS_FD md5 hash error!"
 			echo md5 hash check failed! This could be due to corrupted downloads.
 			echo Perform the DOWNLOAD operation again!
-			rm $(pwd)/BIOS/*.fd
+			rm "$(pwd)"/BIOS/*.fd
+      echo "Failing $BIOS_FD" >> failing.txt
 		fi
 	done
 
 elif [ "$Choice" == "FLASH" ]
 then
 	clear
-	ls $(pwd)/BIOS/F7?????_*.fd &> /dev/null
+	ls "$(pwd)"/BIOS/F7?????_*.fd &> /dev/null
 	if [ $? -eq 0 ]
 	then
 		BIOS_Choice=$(zenity --title "Steam Deck BIOS Manager" --width 400 --height 400 --list \
-			--column "BIOS Version" $(ls -l $(pwd)/BIOS/F7?????_*.fd | sed s/^.*\\/\//) )
+			--column "BIOS Version" $(ls -l "$(pwd)"/BIOS/F7?????_*.fd | sed s/^.*\\/\//) )
 		if [ $? -eq 1 ]
 		then
 			echo User pressed CANCEL. Go back to main menu!
@@ -565,14 +588,14 @@ then
 					# this will prevent BIOS updates to be applied automatically by SteamOS
 					echo -e "$PASSWORD\n" | sudo -S steamos-readonly disable
 					echo -e "$PASSWORD\n" | sudo -S systemctl mask jupiter-biosupdate
-					echo -e "$PASSWORD\n" | sudo -S mkdir -p /foxnet/bios/ 2> /dev/null
-					echo -e "$PASSWORD\n" | sudo -S touch /foxnet/bios/INHIBIT 2> /dev/null
-					echo -e "$PASSWORD\n" | sudo -S mkdir /usr/share/jupiter_bios/bak 2> /dev/null
-					echo -e "$PASSWORD\n" | sudo -S mv /usr/share/jupiter_bios/F* /usr/share/jupiter_bios/bak 2> /dev/null
+					echo -e "$PASSWORD\n" | sudo -S mkdir -p "/foxnet/bios/" 2> /dev/null
+					echo -e "$PASSWORD\n" | sudo -S touch "/foxnet/bios/INHIBIT" 2> /dev/null
+					echo -e "$PASSWORD\n" | sudo -S mkdir "/usr/share/jupiter_bios/bak" 2> /dev/null
+					echo -e "$PASSWORD\n" | sudo -S mv "/usr/share/jupiter_bios"/F* "/usr/share/jupiter_bios/bak" 2> /dev/null
 					echo -e "$PASSWORD\n" | sudo -S steamos-readonly enable
 
 					# flash the BIOS
-					echo -e "$PASSWORD\n" | sudo -S /usr/share/jupiter_bios_updater/h2offt $(pwd)/BIOS/$BIOS_Choice -all
+					echo -e "$PASSWORD\n" | sudo -S "/usr/share/jupiter_bios_updater/h2offt" "$(pwd)/BIOS/$BIOS_Choice" -all
 				fi
 			else
 				echo User pressed YES. Perform BIOS backup and then flash $BIOS_Choice!
@@ -580,17 +603,17 @@ then
 				# this will prevent BIOS updates to be applied automatically by SteamOS
 				echo -e "$PASSWORD\n" | sudo -S steamos-readonly disable
 				echo -e "$PASSWORD\n" | sudo -S systemctl mask jupiter-biosupdate
-				echo -e "$PASSWORD\n" | sudo -S mkdir -p /foxnet/bios/ 2> /dev/null
-				echo -e "$PASSWORD\n" | sudo -S touch /foxnet/bios/INHIBIT 2> /dev/null
-				echo -e "$PASSWORD\n" | sudo -S mkdir /usr/share/jupiter_bios/bak 2> /dev/null
-				echo -e "$PASSWORD\n" | sudo -S mv /usr/share/jupiter_bios/F* /usr/share/jupiter_bios/bak 2> /dev/null
+				echo -e "$PASSWORD\n" | sudo -S mkdir -p "/foxnet/bios/" 2> /dev/null
+				echo -e "$PASSWORD\n" | sudo -S touch "/foxnet/bios/INHIBIT" 2> /dev/null
+				echo -e "$PASSWORD\n" | sudo -S mkdir "/usr/share/jupiter_bios/bak" 2> /dev/null
+				echo -e "$PASSWORD\n" | sudo -S mv "/usr/share/jupiter_bios"/F* "/usr/share/jupiter_bios/bak" 2> /dev/null
 				echo -e "$PASSWORD\n" | sudo -S steamos-readonly enable
 
 				# create BIOS backup and then flash the BIOS
-				mkdir ~/BIOS_backup 2> /dev/null
-				echo -e "$PASSWORD\n" | sudo -S /usr/share/jupiter_bios_updater/h2offt \
-					~/BIOS_backup/jupiter-$BIOS_VERSION-bios-backup-$(date +%B%d).bin -O
-				echo -e "$PASSWORD\n" | sudo -S /usr/share/jupiter_bios_updater/h2offt $(pwd)/BIOS/$BIOS_Choice -all
+				mkdir "$HOME/BIOS_backup" 2> /dev/null
+				echo -e "$PASSWORD\n" | sudo -S "/usr/share/jupiter_bios_updater/h2offt" \
+					"$HOME/BIOS_backup/jupiter-$BIOS_VERSION-bios-backup-$(date +%B%d).bin" -O
+				echo -e "$PASSWORD\n" | sudo -S "/usr/share/jupiter_bios_updater/h2offt" "$(pwd)/BIOS/$BIOS_Choice" -all
 			fi
 		fi
 	else
