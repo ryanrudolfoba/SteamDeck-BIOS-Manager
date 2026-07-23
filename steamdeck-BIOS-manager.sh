@@ -533,7 +533,7 @@ then
 			echo $BIOS_FD md5 hash error! 
 			echo md5 hash check failed! This could be due to corrupted downloads.
 			echo Perform the DOWNLOAD operation again!
-			rm $(pwd)/BIOS/*.fd
+			rm $(pwd)/BIOS/$BIOS_FD
 		fi
 	done
 
