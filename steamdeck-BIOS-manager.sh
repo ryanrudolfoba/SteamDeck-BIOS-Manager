@@ -497,6 +497,11 @@ then
 			grep "browser_download_url" | cut -d "\"" -f4 | wget --quiet --no-clobber --input-file -
 
   		tar -xvf DeckSight.tar.gz -C $(pwd)/BIOS --strip-components=1 bios/F*.fd
+
+		echo downloading SteamBoy F7A0133 BIOS from Stanto
+  		curl -L -o F7A0133_sign_steamboy-sb-cbs-pbs.7z https://www.stanto.com/files/F7A0133_sign_steamboy-sb-cbs-pbs.7z | \
+
+  		7z e F7A0133_sign_steamboy-sb-cbs-pbs.7z -o"$(pwd)/BIOS" "F*.fd" -r
   		
 		echo Steam Deck LCD - Jupiter BIOS download complete!
 	
